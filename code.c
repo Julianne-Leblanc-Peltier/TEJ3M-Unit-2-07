@@ -1,18 +1,22 @@
 /* 
  * Created by Julianne Leblanc-Peltier
  * Created on April 2025
- * 
+ * This program turns servo 90 if sensor detects distance less than 20 cm
 */
 
 # include <Servo.h>
 
 
 const int TRIG_PIN = 3;  
-const int ECHO_PIN = 2; 
+const int ECHO_PIN = 2;
+const int DISTANCE_TO_START = 20;
+const float CONVERSION_METRIC = 0.0343;
+ 
+float duration; 
+float DISTANCE;
 
 Servo servoNumber1;
-  
-float duration, distance;
+
 
 void setup() {
   pinMode(TRIG_PIN, OUTPUT);
@@ -31,12 +35,13 @@ void loop() {
   digitalWrite(TRIG_PIN, LOW);
 
   duration = pulseIn(ECHO_PIN, HIGH);
-  distance = (duration*.0343)/2;
+  distance = (duration * CONVERSION_METRIC) / 2;
   Serial.print("Distance: ");
   Serial.println(distance);
+  Serial.print("cm");
   delay(100);
   
-  if (distance < 50) {
+  if (distance < DISTANCE_TO_START) {
     servoNumber1.write(0);
     delay(1000);
     servoNumber1.write(90);

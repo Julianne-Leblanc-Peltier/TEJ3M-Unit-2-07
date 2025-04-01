@@ -41,5 +41,5 @@ void loop() {
     delay(1000);
     servoNumber1.write(90);
     delay(1000);
-	}
+  }
 }

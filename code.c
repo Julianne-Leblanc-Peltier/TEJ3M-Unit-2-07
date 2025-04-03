@@ -27,13 +27,17 @@ void setup() {
 }
 
 void loop() {
+ // clears trig pin
   servoNumber1.write(0);
   digitalWrite(TRIG_PIN, LOW);
+
+  // set trig on high for 10 microseconds
   delayMicroseconds(2);
   digitalWrite(TRIG_PIN, HIGH);
   delayMicroseconds(10);
   digitalWrite(TRIG_PIN, LOW);
 
+  // detects distance
   duration = pulseIn(ECHO_PIN, HIGH);
   distance = (duration * CONVERSION_METRIC) / 2;
   Serial.print("Distance: ");
